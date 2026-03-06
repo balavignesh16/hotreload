@@ -19,6 +19,7 @@ func main() {
 
 	http.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
 
+		slog.Info("Request received", "method", r.Method)
 		resp := Response{
 			Status:  "Good",
 			Version: "v1",

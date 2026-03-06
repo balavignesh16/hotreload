@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"hotreload/testserver/api"
 	"log/slog"
 	"net/http"
 	"os"
@@ -29,8 +30,11 @@ func main() {
 		json.NewEncoder(w).Encode(resp)
 	})
 
+	http.HandleFunc("/api/users", api.GetUsers)
+
 	slog.Info("API server is up")
 	slog.Info("url http://localhost:8080/api/health")
+	slog.Info("url http://localhost:8080/api/users")
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

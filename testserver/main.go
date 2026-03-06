@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"hotreload/testserver/api"
 	"log/slog"
 	"net/http"
@@ -18,18 +17,7 @@ func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 	slog.SetDefault(logger)
 
-	http.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
-
-		slog.Info("Request received", "method", r.Method)
-		resp := Response{
-			Status:  "Good",
-			Version: "v1",
-			Message: "hotreload",
-		}
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(resp)
-	})
-
+	http.HandleFunc("/api/health", api.HealthCheck)
 	http.HandleFunc("/api/users", api.GetUsers)
 
 	slog.Info("API server is up")

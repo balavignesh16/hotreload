@@ -19,10 +19,12 @@ func main() {
 
 	http.HandleFunc("/api/health", api.HealthCheck)
 	http.HandleFunc("/api/users", api.GetUsers)
+	http.HandleFunc("/api/age", api.CalculateAge)
 
 	slog.Info("API server is up")
 	slog.Info("url http://localhost:8080/api/health")
 	slog.Info("url http://localhost:8080/api/users")
+	slog.Info("url http://localhost:8080/api/age")
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
